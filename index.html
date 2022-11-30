@@ -20,7 +20,7 @@
         <img src="./images/image.jpg" alt="Аватарка" class="profile__avatar">
         <div class="profile__profile-info">
           <h1 id="nameText" class="profile__title">Жак-Ив Кусто</h1>
-          <button id="button" type="button" class="profile__submit-btn icons"></button>
+          <button id="buttonProf" type="button" class="profile__submit-btn icons"></button>
           <p id="job" class="profile__paragrah">Исcледователь океана</p>
         </div>
         <button type="button" class="profile__button icons"></button>
@@ -78,10 +78,10 @@
     <div class="popup">
       <div class="popup__container">
         <button type="button" class="popup__close icons"></button>
-        <form id="popupForm">
+        <form name="popupForm" id="popupForm">
           <h2 class="popup__text">Редактировать профиль</h2>
-          <input id="nameInput" class="popup__name-profile" type="text" value="">
-          <input id="jobInput" class="popup__name-profile" type="text" value="">
+          <input name="nameInput" id="nameInput" class="popup__name-profile" type="text" value="">
+          <input name="jobInput" id="jobInput" class="popup__name-profile" type="text" value="">
           <button type="submit" class="popup__save-button">Сохранить</button>
         </form>
       </div>
