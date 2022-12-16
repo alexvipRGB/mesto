@@ -1,7 +1,4 @@
 .profile__profile-info {
-    display: flex;
-    gap: 8px 16px;
-    flex-wrap: wrap;
     display: grid;
     gap: 8px 20px;
     grid-template-columns: 1fr 30px;
