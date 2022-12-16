@@ -30,147 +30,121 @@ const initialCards = [
       "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg"
   }
 ];
-// Находим форму в DOM
-const popupForm = document.getElementById('popupForm');
-const popupFormup = document.getElementById('popupFormup');
-// Находим поля формы в DOM
-const nameInput = document.getElementById('nameInput');
-const jobInput = document.getElementById('jobInput');
-const buttonProf = document.getElementById('buttonProf');
-const nametext = document.querySelector('.profile__title');
-const job = document.querySelector('.profile__paragrah');
-const namelink = document.getElementById('namelink');
-const link = document.getElementById('link');
-const buttonAdd = document.getElementById('buttonAdd');
+const popup = document.querySelectorAll('.popup');
+const popupProfilForm = document.querySelector('.popup__form_PopupFormNewMesto');
+const popupFormNewMesto = document.querySelector('.popup__form_PopupFormNewMesto');
+const nameInput = document.querySelector('.popup__name_profile');
+const jobInput = document.querySelector('.popup__name_job');
+const inputTextNewMesto = popupFormNewMesto.querySelector('.popup__name_text');
+const inputImgNewMesto = popupFormNewMesto.querySelector('.popup__name_img');
+const buttonSaveCardMesto = popupFormNewMesto.querySelector('.popup__save');
+const buttonNewProfil = document.querySelector('.profile__submit-btn');
+const buttonNewMesto = document.querySelector('.profile__button');
+const buttonClose = document.querySelectorAll('.popup__close');
+const nameProfil = document.querySelector('.profile__title');
+const ProfileJob = document.querySelector('.profile__paragrah');
 const elementContainer = document.querySelector('.elements');
-const template = document.querySelector('#elements').content;
-const inputText = popupFormup.querySelector('.popup__addImg_text');
-const inputImg = popupFormup.querySelector('.popup__addImg_Img');
-const button = popupFormup.querySelector('.popup__save');
-const name = document.querySelector('.element__group');
-const popupImg = document.querySelector('.popup_Img');
-const nameElem = document.getElementById('nameElem');
-const buttonImg = document.getElementById('buttonImg');
-const imgpopup = document.getElementById('imgpopup');
-const nameimg = document.getElementById('nameimg');
+const addcardscontent = document.querySelector('#elements').content;
+const addcards = document.querySelector('#elements');
+const nameElemCard = document.querySelector('.element__title');
+const buttonOpenImg = document.querySelector('.element__image');
+const imgPopapCard = document.querySelector('.popup__image');
+const nameCardsImg = document.querySelector('.popup__name-image');
+const popupOpenCard = document.getElementById('popupOpenCard');
+const popupProfile = document.getElementById('popupProfile');
+const popupNewMesto = document.getElementById('popupNewMesto');
 
-function getPopup(element) {
-  let popupid = null;
-  let popup = null;
-  let buttonName = element.target.getAttribute('id');
-  if (buttonName == "buttonProf") {
-    popupid = "popup-r";
-  }
-  if (buttonName == "buttonAdd") {
-    popupid = "popup-n";
-  }
-  if (buttonName == "buttonImg") {
-    popupid = "popup-img";
-  }
-  if (popupid != null) {
-    popup = document.getElementById(popupid);
-  }
-  return popup;
+function closePopup(modalWindow) {
+  modalWindow.classList.remove('popup_opened');
 }
 
-let elements = document.getElementsByClassName('popup__close');
-for (let i = 0; i < elements.length; i++) {
-  elements[i].addEventListener('click', closePopup);
+const openPopup = (modalWindow) => {
+  modalWindow.classList.add('popup_opened');
 }
 
-function getPopupClose(element) {
-  let popupid = null;
-  let popup = null;
-  let buttonNameClose = element.target.getAttribute('name');
-  if (buttonNameClose == "close-r") {
-    popupid = "popup-r";
-  }
-  if (buttonNameClose == "close-n") {
-    popupid = "popup-n";
-  }
-  if (buttonNameClose == "close-i") {
-    popupid = "popup-img";
-  }
-  if (popupid != null) {
-    popup = document.getElementById(popupid);
-  }
-  return popup;
+popup.forEach((button) => {
+  modalWindow = button;
+  buttonClose.forEach((buttonClose) => {
+    buttonClose.addEventListener("click", () => closePopup(button));
+  });
+});
+
+function openPropfilePopup() {
+  nameInput.value = nameProfil.textContent;
+  jobInput.value = ProfileJob.textContent;
+  const modalWindow = document.getElementById('popupProfile');
+  openPopup(modalWindow);
+
+}
+function openNewMestoPopup() {
+  inputTextNewMesto.value;
+  inputImgNewMesto.value;
+  const modalWindow = document.getElementById('popupNewMesto');
+  openPopup(modalWindow);
 }
 
-function openPopup(element) {
-  let popup = getPopup(element);
-  if (popup != null) {
-    nameInput.value = nametext.textContent;
-    jobInput.value = job.textContent;
-    namelink.value;
-    link.value;
-    popup.classList.add('popup_opened');
+function openCardImgPopup(taskItem) {
+  if (taskItem != null) {
+    imgPopapCard.src = taskItem.link;
+    nameCardsImg.textContent = taskItem.name;
+  } else {
+    imgPopapCard.src = taskUrl;
+    nameCardsImg.textContent = taskName;
   }
+  const modalWindow = document.getElementById('popupOpenCard');
+  openPopup(modalWindow);
 }
 
 function handleFormSubmit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-  nametext.textContent = nameInput.value;// Выберите элементы, куда должны быть вставлены значения полей
-  job.textContent = jobInput.value; // Вставьте новые значения с помощью textContent
-  closePopup();
+  nameProfil.textContent = nameInput.value;// Выберите элементы, куда должны быть вставлены значения полей
+  ProfileJob.textContent = jobInput.value; // Вставьте новые значения с помощью textContent
+  const modalWindow = document.getElementById('popupProfile');
+  closePopup(modalWindow);
 }
 
-function closePopup(element) {
-  let popup = getPopupClose(element);
-  if (popup != null) {
-    popup.classList.remove('popup_opened');
-  }
-}
-
-const createTodo = (taskItem, { taskName, taskUrl }) => {
-  const template = document.querySelector('#elements');
-  if ((taskName != undefined) & (taskUrl != undefined)) {
-    const taskName = taskItem.taskName;
-    const taskUrl = taskItem.taskUrl;
-  } else {
+const createCard = (taskItem) => {
+  const card = addcards.content.querySelector('.element').cloneNode(true);
+  if (taskItem != null) {
     taskName = taskItem.name;
     taskUrl = taskItem.link;
+  } else {
+    taskName = inputTextNewMesto.value;
+    taskUrl = inputImgNewMesto.value;
   }
-  const task = template.content.querySelector('.element').cloneNode(true);
-  task.querySelector('.element__title').textContent = taskName;
-  task.querySelector('.element__image').src = taskUrl;
-  task.querySelector('.element__trash').addEventListener('click', () => {
-    task.remove();
+  card.querySelector('.element__title').textContent = taskName;
+  const cardImgClik = card.querySelector('.element__image');
+  cardImgClik.src = taskUrl;
+  taskName.textContent = taskUrl.alt;
+  card.querySelector('.element__trash').addEventListener('click', () => {
+    card.remove();
   });
-  task.querySelector('.element__like').addEventListener('click', () => {
-    task.querySelector('.element__like').classList.toggle('element__like_active');
+  const cardLike = card.querySelector('.element__like');
+  cardLike.addEventListener('click', () => {
+    cardLike.classList.toggle('element__like_active');
   });
-  task.querySelector('.element__image').addEventListener('click', openimgPopup);
-  function openimgPopup(createTodo = (taskItem, { taskName, taskUrl })) {
-    let popup = document.getElementById('popup-img');
-    let imgpopup = document.getElementById('imgpopup');
-    let nameimg = document.getElementById('nameimg');
-    nameimg.textContent = taskName;
-    imgpopup.src = taskUrl;
-    popup.classList.add('popup_opened');
-  };
-  return task;
+  cardImgClik.addEventListener('click', () => {
+    openCardImgPopup(taskItem);
+  });
+  return card;
 };
 
-elementContainer.append(...initialCards.map(createTodo));
+elementContainer.append(...initialCards.map(createCard));
 
-
-
-const addTodo = (event) => {
+const addCard = (event, taskItem) => {
   event.preventDefault();
-  taskName = inputText.value;
-  taskUrl = inputImg.value;
-  taskItem = ({ taskName, taskUrl });
-  renderTodo(taskItem, { taskUrl, taskName })
-  inputImg.value = '';
-  inputText.value = '';
+  renderCard(taskItem);
+  inputImgNewMesto.value = '';
+  inputTextNewMesto.value = '';
+  const modalWindow = document.getElementById('popupNewMesto');
+  closePopup(modalWindow);
 };
 
-const renderTodo = (taskItem, { taskUrl, taskName }) => {
-  elementContainer.prepend(createTodo(taskItem, { taskUrl, taskName }))
+const renderCard = (taskItem) => {
+  elementContainer.prepend(createCard(taskItem))
 }
 
-popupFormup.addEventListener('submit', addTodo);
-buttonAdd.addEventListener('click', openPopup);
-buttonProf.addEventListener('click', openPopup);
-popupForm.addEventListener('submit', handleFormSubmit);
+popupFormNewMesto.addEventListener('submit', addCard);
+buttonNewMesto.addEventListener('click', openNewMestoPopup);
+buttonNewProfil.addEventListener('click', openPropfilePopup);
+popupProfilForm.addEventListener('submit', handleFormSubmit);

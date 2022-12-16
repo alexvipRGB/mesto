@@ -1,0 +1,17 @@
+.popup__container_image {
+    max-width: 75vw;
+    max-height: 75vh;
+    background: none;
+    display: flex;
+    padding: 0;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    position: relative;
+}
+@media screen and (max-width: 340px) {
+    .popup__container_image {
+        max-height: 54vh;
+    }
+  
+  }
