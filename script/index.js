@@ -61,14 +61,11 @@ function closePopup(modalWindow) {
 const openPopup = (modalWindow) => {
   modalWindow.classList.add('popup_opened');
 }
-cardList.forEach((button) => {
-  modalWindow = button;
-  buttonClose[0].addEventListener("click", () => closePopup(button));
-  buttonClose[1].addEventListener("click", () => closePopup(button));
-  buttonClose[2].addEventListener("click", () => closePopup(button));
-});
 
-
+for (let i = 0; i < cardList.length; i++) {
+  const button = cardList[i];
+  buttonClose[i].addEventListener("click", () => closePopup(button));
+}
 
 function openPropfilePopup() {
   nameInput.value = nameProfil.textContent;
