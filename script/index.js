@@ -30,7 +30,7 @@ const initialCards = [
       "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg"
   }
 ];
-const cardList = document.querySelectorAll('.popup');
+const popupsList = document.querySelectorAll('.popup');
 const popupProfilForm = document.querySelector('.popup__form_PopupProfil');
 const popupFormNewMesto = document.querySelector('.popup__form_PopupFormNewMesto');
 const nameInput = document.querySelector('.popup__name_profile');
@@ -40,7 +40,7 @@ const inputTextNewMesto = document.querySelector('.popup__name_text');
 const inputImgNewMesto = document.querySelector('.popup__name_img');
 const buttonSaveCardMesto = popupFormNewMesto.querySelector('.popup__save');
 const buttonNewMesto = document.querySelector('.profile__button');
-const buttonClose = document.querySelectorAll('.popup__close');
+const buttonsList = document.querySelectorAll('.popup__close');
 const nameProfil = document.querySelector('.profile__title');
 const profileJob = document.querySelector('.profile__paragrah');
 const elementContainer = document.querySelector('.elements');
@@ -62,63 +62,44 @@ const openPopup = (modalWindow) => {
   modalWindow.classList.add('popup_opened');
 }
 
-for (let i = 0; i < cardList.length; i++) {
-  const button = cardList[i];
-  buttonClose[i].addEventListener("click", () => closePopup(button));
+for (let i = 0; i < popupsList.length; i++) {
+  const popup = popupsList[i];
+  buttonsList[i].addEventListener("click", () => closePopup(popup));
 }
 
 function openPropfilePopup() {
   nameInput.value = nameProfil.textContent;
   jobInput.value = profileJob.textContent;
-  const modalWindow = popupProfile;
-  openPopup(modalWindow);
+  openPopup(popupProfile);
 }
 
 function openNewMestoPopup() {
-  const modalWindow = popupNewMesto;
-  openPopup(modalWindow);
-  elementName.value = inputTextNewMesto.textContent;
-  elementUrl.value = inputImgNewMesto.src;
+  openPopup(popupNewMesto);
 }
 
 function openCardImgPopup(infocards) {
-  if (infocards.name = infocards.name) {
-    imgPopapCard.src = infocards.link;
-    nameCardsImg.textContent = infocards.name;
-  } else {
-    elementName = infocards.elementName;
-    elementUrl = infocards.elementUrl;
-  }
-  elementUrl = imgPopapCard.src;
-  elementName = nameCardsImg.textContent;
-  imgPopapCard.alt = elementName;
-  const modalWindow = popupOpenCard;
-  openPopup(modalWindow);
+  imgPopapCard.src = (infocards.link || infocards.elementUrl);
+  nameCardsImg.textContent = (infocards.name || infocards.elementName);
+  imgPopapCard.alt = nameCardsImg.textContent;
+  openPopup(popupOpenCard);
 }
 
-function profileFormSubmit(evt) {
+function handleProfileFormSubmit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   nameProfil.textContent = nameInput.value;// Выберите элементы, куда должны быть вставлены значения полей
   profileJob.textContent = jobInput.value; // Вставьте новые значения с помощью textContent
-  const modalWindow = popupProfile;
-  closePopup(modalWindow);
+  closePopup(popupProfile);
 }
 
 const createCard = (infocards) => {
   const card = cardsElement.content.querySelector('.element').cloneNode(true);
-  if (infocards.name = infocards.name) {
-    elementName = infocards.name;
-    elementUrl = infocards.link;
-  } else {
-    elementName = infocards.elementName;
-    elementUrl = infocards.elementUrl;
-  }
+  const elementName = (infocards.name || infocards.elementName);
+  const elementUrl = (infocards.link || infocards.elementUrl); 
   const cardName = card.querySelector('.element__title');
-  const cardImgClik = card.querySelector('.element__image');
-
+  const cardImg = card.querySelector('.element__image');
   cardName.textContent = elementName;
-  cardImgClik.src = elementUrl;
-  cardImgClik.alt = elementName;
+  cardImg.src = elementUrl;
+  cardImg.alt = elementName;
   card.querySelector('.element__trash').addEventListener('click', () => {
     card.remove();
   });
@@ -126,7 +107,7 @@ const createCard = (infocards) => {
   cardLike.addEventListener('click', () => {
     cardLike.classList.toggle('element__like_active');
   });
-  cardImgClik.addEventListener('click', () => {
+  cardImg.addEventListener('click', () => {
     openCardImgPopup(infocards);
   });
   return card;
@@ -141,8 +122,7 @@ const addCard = (event) => {
   renderCard({ elementName, elementUrl });
   inputImgNewMesto.value = '';
   inputTextNewMesto.value = '';
-  const modalWindow = document.getElementById('popupNewMesto');
-  closePopup(modalWindow);
+  closePopup(popupNewMesto);
 };
 
 const renderCard = ({ elementName, elementUrl }) => {
@@ -152,4 +132,4 @@ const renderCard = ({ elementName, elementUrl }) => {
 popupFormNewMesto.addEventListener('submit', addCard);
 buttonNewMesto.addEventListener('click', openNewMestoPopup);
 buttonNewProfil.addEventListener('click', openPropfilePopup);
-popupProfilForm.addEventListener('submit', profileFormSubmit);
+popupProfilForm.addEventListener('submit', handleProfileFormSubmit);

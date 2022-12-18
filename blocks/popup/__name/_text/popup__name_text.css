@@ -13,3 +13,11 @@
     white-space: nowrap;
     overflow: hidden;
 }
+
+@media screen and (max-width: 770px) {
+    .popup__name_text {
+        min-width: 238px;
+        margin: 0px 0px 30px 22px;
+    }
+
+}
