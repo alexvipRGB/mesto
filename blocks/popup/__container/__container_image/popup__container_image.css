@@ -1,6 +1,5 @@
 .popup__container_image {
-    max-width: 75vw;
-    max-height: 75vh;
+    max-width: 100%;
     background: none;
     display: flex;
     padding: 0;
@@ -9,9 +8,9 @@
     box-sizing: border-box;
     position: relative;
 }
-@media screen and (max-width: 340px) {
+@media screen and (max-width: 400px) {
     .popup__container_image {
-        max-height: 54vh;
+        max-width: 75vw;
     }
   
   }
