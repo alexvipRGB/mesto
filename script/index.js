@@ -40,7 +40,7 @@ const inputTextNewMesto = document.querySelector('.popup__name_text');
 const inputImgNewMesto = document.querySelector('.popup__name_img');
 const buttonSaveCardMesto = popupFormNewMesto.querySelector('.popup__save');
 const buttonNewMesto = document.querySelector('.profile__button');
-const buttonsList = document.querySelectorAll('.popup__close');
+const buttonCloseList = document.querySelectorAll('.popup__close');
 const nameProfil = document.querySelector('.profile__title');
 const profileJob = document.querySelector('.profile__paragrah');
 const elementContainer = document.querySelector('.elements');
@@ -62,10 +62,10 @@ const openPopup = (modalWindow) => {
   modalWindow.classList.add('popup_opened');
 }
 
-for (let i = 0; i < popupsList.length; i++) {
-  const popup = popupsList[i];
-  buttonsList[i].addEventListener("click", () => closePopup(popup));
-}
+buttonCloseList.forEach(btn => {
+  const popup = btn.closest('.popup');
+  btn.addEventListener('click', () => closePopup(popup)); 
+}) 
 
 function openPropfilePopup() {
   nameInput.value = nameProfil.textContent;
@@ -80,7 +80,7 @@ function openNewMestoPopup() {
 function openCardImgPopup(infocards) {
   imgPopapCard.src = infocards.link;
   nameCardsImg.textContent = infocards.name;
-  imgPopapCard.alt = nameCardsImg.textContent;
+  imgPopapCard.alt = infocards.name;
   openPopup(popupOpenCard);
 }
 
@@ -93,13 +93,11 @@ function handleProfileFormSubmit(evt) {
 
 const createCard = (infocards) => {
   const card = cardsElement.content.querySelector('.element').cloneNode(true);
-  const elementName = infocards.name;
-  const elementUrl = infocards.link; 
   const cardName = card.querySelector('.element__title');
   const cardImg = card.querySelector('.element__image');
-  cardName.textContent = elementName;
-  cardImg.src = elementUrl;
-  cardImg.alt = elementName;
+  cardName.textContent = infocards.name;
+  cardImg.src = infocards.link;
+  cardImg.alt = infocards.name;
   card.querySelector('.element__trash').addEventListener('click', () => {
     card.remove();
   });
@@ -117,16 +115,16 @@ elementContainer.append(...initialCards.map(createCard));
 
 const addCard = (event) => {
   event.preventDefault();
-  const name = inputTextNewMesto.value;
-  const link = inputImgNewMesto.value;
-  renderCard({ name, link });
+  //const name = inputTextNewMesto.value;
+  //const link = inputImgNewMesto.value;
+  renderCard({inputTextNewMesto.value, inputImgNewMesto.value});
   inputImgNewMesto.value = '';
   inputTextNewMesto.value = '';
   closePopup(popupNewMesto);
 };
 
-const renderCard = ({ name, link }) => {
-  elementContainer.prepend(createCard({ name, link }))
+const renderCard = ({ inputTextNewMesto, inputImgNewMesto }) => {
+  elementContainer.prepend(createCard({ inputTextNewMesto, inputImgNewMesto }))
 }
 
 popupFormNewMesto.addEventListener('submit', addCard);
