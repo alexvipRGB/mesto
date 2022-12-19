@@ -115,16 +115,14 @@ elementContainer.append(...initialCards.map(createCard));
 
 const addCard = (event) => {
   event.preventDefault();
-  //const name = inputTextNewMesto.value;
-  //const link = inputImgNewMesto.value;
-  renderCard({inputTextNewMesto.value, inputImgNewMesto.value});
+  renderCard({name: inputTextNewMesto.value, link: inputImgNewMesto.value});
   inputImgNewMesto.value = '';
   inputTextNewMesto.value = '';
   closePopup(popupNewMesto);
 };
 
-const renderCard = ({ inputTextNewMesto, inputImgNewMesto }) => {
-  elementContainer.prepend(createCard({ inputTextNewMesto, inputImgNewMesto }))
+const renderCard = ({name, link}) => {
+  elementContainer.prepend(createCard({name, link}))
 }
 
 popupFormNewMesto.addEventListener('submit', addCard);
