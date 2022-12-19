@@ -30,7 +30,6 @@ const initialCards = [
       "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg"
   }
 ];
-const popupsList = document.querySelectorAll('.popup');
 const popupProfilForm = document.querySelector('.popup__form_PopupProfil');
 const popupFormNewMesto = document.querySelector('.popup__form_PopupFormNewMesto');
 const nameInput = document.querySelector('.popup__name_profile');
