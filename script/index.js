@@ -1,3 +1,13 @@
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__name',
+  submitButtonSelector: '.popup__save',
+  activeButtonClass: 'popup__save_valid',
+  inactiveButtonClass: 'popup__save_invalid',
+  inputErrorClass: 'popup__name_type-error',
+  errorClass: 'popup__name-error_visible'
+};
+
 const initialCards = [
   {
     name: "Архыз",
@@ -30,6 +40,7 @@ const initialCards = [
       "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg"
   }
 ];
+
 const popupProfilForm = document.querySelector('.popup__form_PopupProfil');
 const popupFormNewMesto = document.querySelector('.popup__form_PopupFormNewMesto');
 const nameInput = document.querySelector('.popup__name_profile');
@@ -37,7 +48,7 @@ const jobInput = document.querySelector('.popup__name_job');
 const buttonNewProfil = document.querySelector('.profile__submit-btn');
 const inputTextNewMesto = document.querySelector('.popup__name_text');
 const inputImgNewMesto = document.querySelector('.popup__name_img');
-const buttonSaveCardMesto = popupFormNewMesto.querySelector('.popup__save');
+const buttonSaveCardMesto = popupFormNewMesto.querySelectorAll('.popup__save');
 const buttonNewMesto = document.querySelector('.profile__button');
 const buttonCloseList = document.querySelectorAll('.popup__close');
 const nameProfil = document.querySelector('.profile__title');
@@ -53,12 +64,31 @@ const popupOpenCard = document.getElementById('popupOpenCard');
 const popupProfile = document.getElementById('popupProfile');
 const popupNewMesto = document.getElementById('popupNewMesto');
 
+const form = document.querySelector('.popup__form');
+const nameProfilInput = document.querySelector('#nameInput');
+const jobProfilInput = document.querySelector('#jobInput');
+const nameNewMestoInput = document.querySelector('#nameNewMesto');
+const linkNewMestoInput = document.querySelector('#linkNewMesto');
+
 function closePopup(modalWindow) {
   modalWindow.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeByKey); 
 }
 
 const openPopup = (modalWindow) => {
   modalWindow.classList.add('popup_opened');
+  document.addEventListener('keydown', closeByKey); 
+}
+
+function closeByKey(evt) {
+  if (evt.key === 'Escape') {
+    const modalWindow = document.querySelector('.popup_opened');
+    closePopup(modalWindow);
+  }
+  if (evt.key === 'Enter') {
+    const modalWindow = document.querySelector('.popup_opened');
+    closePopup(modalWindow);
+  }
 }
 
 buttonCloseList.forEach(btn => {
@@ -70,10 +100,12 @@ function openPropfilePopup() {
   nameInput.value = nameProfil.textContent;
   jobInput.value = profileJob.textContent;
   openPopup(popupProfile);
+  enableValidation(validationConfig);
 }
 
 function openNewMestoPopup() {
   openPopup(popupNewMesto);
+  enableValidation(validationConfig);
 }
 
 function openCardImgPopup(infocards) {
@@ -117,10 +149,31 @@ const addCard = (event) => {
   elementContainer.prepend(createCard({name: inputTextNewMesto.value, link: inputImgNewMesto.value}));
   inputImgNewMesto.value = '';
   inputTextNewMesto.value = '';
+  enableValidation(validationConfig);
   closePopup(popupNewMesto);
+  
 };
+
+function handleSubmitProfil(evt) {
+  evt.preventDefault();
+  console.log({
+    nameInput: nameProfilInput.value,
+    jobInput: jobProfilInput.value,
+  })
+}
+
+function handleSubmitMesto(evt) {
+  evt.preventDefault();
+  console.log({
+    nameNewMesto: nameNewMestoInput.value,
+    linkNewMesto: linkNewMestoInput.value,
+  })
+}
 
 popupFormNewMesto.addEventListener('submit', addCard);
 buttonNewMesto.addEventListener('click', openNewMestoPopup);
 buttonNewProfil.addEventListener('click', openPropfilePopup);
 popupProfilForm.addEventListener('submit', handleProfileFormSubmit);
+form.addEventListener('submit', handleSubmitProfil);
+form.addEventListener('submit', handleSubmitMesto);
+enableValidation(validationConfig);

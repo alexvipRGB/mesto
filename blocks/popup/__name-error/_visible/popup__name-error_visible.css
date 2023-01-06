@@ -1,0 +1,20 @@
+.popup__name-error_visible {
+    text-decoration: none;
+    font-style: normal;
+    border: 1px solid rgba(255, 0, 0);
+    border-style: solid none none none;
+    margin: 0px 0px 30px 36px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 770px) {
+    .popup__name-error_visible {
+        min-width: 238px;
+        margin: 0px auto;
+    }
+
+}

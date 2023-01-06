@@ -36,9 +36,11 @@
           aria-label="Кнопка для закрытия окна редактирования"></button>
         <form name="popupProfilForm" id="popupProfilForm" class="popup__form popup__form_PopupProfil">
           <h2 class="popup__text">Редактировать профиль</h2>
-          <input name="nameInput" id="nameInput" class="popup__name popup__name_profile" type="text" value="">
-          <input name="jobInput" id="jobInput" class="popup__name popup__name_job" type="text" value="">
-          <button id="SaveProfil" type="submit" class="popup__save-button"
+          <input name="nameInput" id="nameInput" minlength="2" maxlength="40" class="popup__name popup__name_profile" type="text" value="" required>
+          <span class="nameInput-error popup__name-error"></span>
+          <input name="jobInput" id="jobInput" minlength="2" maxlength="200" class="popup__name popup__name_job" type="text" value="" required>
+          <span class="jobInput-error popup__name-error"></span>
+          <button id="SaveProfil" type="submit" class="popup__save popup__save_valid"
             aria-label="Кнопка Сохранить">Сохранить</button>
         </form>
       </div>
@@ -49,11 +51,13 @@
           aria-label="Кнопка для закрытия окна редактирования"></button>
         <form name="popupFormNewMesto" id="popupFormNewMesto" class="popup__form popup__form_PopupFormNewMesto">
           <h2 class="popup__text">Новое место</h2>
-          <input type="text" class="popup__name popup__name_text" name="nameNewMesto" id="nameNewMesto"  value=""
-            placeholder="Название">
+          <input type="text" minlength="2" maxlength="30" class="popup__name popup__name_text" name="nameNewMesto" id="nameNewMesto"  value=""
+            placeholder="Название" required>
+            <span class="nameNewMesto-error popup__name-error"></span>
           <input type="url" class="popup__name popup__name_img" name="linkNewMesto" id="linkNewMesto" value=""
-            placeholder="Ссылка на картинку">
-          <button id="SaveCardMesto" class="popup__save" type="submit" aria-label="Кнопка Создать">Создать</button>
+            placeholder="Ссылка на картинку" required>
+            <span class="linkNewMesto-error popup__name-error"></span>
+          <button id="SaveCardMesto" class="popup__save popup__save_valid" type="submit" aria-label="Кнопка Создать">Создать</button>
         </form>
       </div>
     </section>
@@ -85,6 +89,7 @@
       </li>
     </article>
   </template>
+  <script async src="script/validate.js"></script>
   <script async src="script/index.js"></script>
 </body>
 
