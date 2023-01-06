@@ -1,6 +1,6 @@
 1. Проект: Место
 
-Ссылка на макет в Figma https://alexviprgb.github.io/mesto/index.html
+Ссылка на проэкт https://alexviprgb.github.io/mesto/index.html
 
 2. Сайт включает в себя такие технологии как: 
 1) Структура файловой системы по БЭМ
