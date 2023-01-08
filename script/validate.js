@@ -43,6 +43,21 @@ function toggleButtonState(inputList, buttonElement, config) {
   }
 }
 }
+//Повторная проверка
+function setButtonState(popup) {
+  const formElement = popup.querySelector(validationConfig.formSelector);
+  const inputList = Array.from(formElement.querySelectorAll(validationConfig.inputSelector));
+  const buttonElement = formElement.querySelector(validationConfig.submitButtonSelector);
+  toggleButtonState(inputList, buttonElement, validationConfig);
+}
+//Повторная проверка строки
+function setErrorState(popup) {
+  const formElement = popup.querySelector(validationConfig.formSelector);
+  const inputList = Array.from(formElement.querySelectorAll(validationConfig.inputSelector));
+  inputList.forEach((inputElement) => {
+      checkInputValidity(formElement, inputElement, validationConfig);
+  });
+}
 
 // Метод проверки всех input
 function setEventListeners (formElement, config) {

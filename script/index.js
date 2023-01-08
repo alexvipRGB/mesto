@@ -106,10 +106,13 @@ function openPropfilePopup() {
   nameInput.value = nameProfil.textContent;
   jobInput.value = profileJob.textContent;
   openPopup(popupProfile);
+  setButtonState(popupProfile);
+  setErrorState(popupProfile);
 }
 
 function openNewMestoPopup() {
   openPopup(popupNewMesto);
+  setButtonState(popupNewMesto);
 }
 
 function openCardImgPopup(infocards) {
@@ -153,7 +156,7 @@ const addCard = (event) => {
   elementContainer.prepend(createCard({name: inputTextNewMesto.value, link: inputImgNewMesto.value}));
   closePopup(popupNewMesto);
   inputImgNewMesto.value = '';
-  inputTextNewMesto.value = ''; 
+  inputTextNewMesto.value = '';
 };
 
 popupFormNewMesto.addEventListener('submit', addCard);
