@@ -1,10 +1,12 @@
-import { FormValidator, validationConfig } from '../script/formValidator.js';
-import { Card } from '../script/card.js';
+import { FormValidator, validationConfig } from './FormValidator.js';
+import { Card } from './Card.js';
 
 const popupProfilForm = document.querySelector('.popup__form_PopupProfil');
 const popupFormNewMesto = document.querySelector('.popup__form_PopupFormNewMesto');
 const nameInput = document.querySelector('.popup__name_profile');
 const jobInput = document.querySelector('.popup__name_job');
+const cardElement = document.querySelector('#elements').content;
+const cardsElement = document.querySelector('#elements');
 const buttonNewProfil = document.querySelector('.profile__submit-btn');
 const inputTextNewMesto = document.querySelector('.popup__name_text');
 const inputImgNewMesto = document.querySelector('.popup__name_img');
@@ -13,6 +15,10 @@ const buttonCloseList = document.querySelectorAll('.popup__close');
 const nameProfil = document.querySelector('.profile__title');
 const profileJob = document.querySelector('.profile__paragrah');
 const elementContainer = document.querySelector('.elements');
+const popupOpenCard = document.getElementById('popupOpenCard');
+const imgPopapCard = document.querySelector('.popup__image');
+const nameCardsImg = document.querySelector('.popup__name-image');
+const buttonClose = document.querySelector('.popup__close');
 const popupProfile = document.getElementById('popupProfile');
 const popupNewMesto = document.getElementById('popupNewMesto');
 
@@ -28,10 +34,6 @@ const openPopup = (modalWindow) => {
 
 function closeByKey(evt) {
   if (evt.key === 'Escape') {
-    const modalWindow = document.querySelector('.popup_opened');
-    closePopup(modalWindow);
-  }
-  if (evt.key === 'Enter') {
     const modalWindow = document.querySelector('.popup_opened');
     closePopup(modalWindow);
   }
@@ -51,14 +53,12 @@ function openPropfilePopup() {
   nameInput.value = nameProfil.textContent;
   jobInput.value = profileJob.textContent;
   openPopup(popupProfile);
-  validProfilForm.setErrorState();
-  validProfilForm.setButtonState();
+  validProfilForm.resetValidation();
 }
 
 function openNewMestoPopup() {
   openPopup(popupNewMesto);
-  validFormNewMesto.setButtonState();
-  validProfilForm.setErrorState();
+  validFormNewMesto.resetValidation();
 }
 
 function handleProfileFormSubmit(evt) {
@@ -68,13 +68,26 @@ function handleProfileFormSubmit(evt) {
   closePopup(popupProfile);
 }
 
+function openCardImgPopup(infocards) {
+  imgPopapCard.src = infocards.link;
+  nameCardsImg.textContent = infocards.name;
+  imgPopapCard.alt = infocards.name;
+  openPopup(popupOpenCard);
+}
+
+function handleCardClick(name, link) {
+  imgPopapCard.src = link;
+  nameCardsImg.textContent = name;
+  imgPopapCard.alt = name;
+  openPopup(popupOpenCard);
+}
+
 const addCard = (event) => {
   event.preventDefault();
-  const addCard = new Card(inputTextNewMesto.value, inputImgNewMesto.value);
-  elementContainer.prepend(addCard.enableCard(inputTextNewMesto.value, inputImgNewMesto.value));
+  const addCard = new Card({name: inputTextNewMesto.value, link: inputImgNewMesto.value}, cardsElement, handleCardClick);
+  elementContainer.prepend(addCard.generate({name: inputTextNewMesto.value, link: inputImgNewMesto.value}));
   closePopup(popupNewMesto);
-  inputImgNewMesto.value = '';
-  inputTextNewMesto.value = '';
+  event.target.reset();
 };
 
 popupFormNewMesto.addEventListener('submit', addCard);
@@ -88,5 +101,4 @@ validProfilForm.enableValidation();
 const validFormNewMesto = new FormValidator(validationConfig, popupFormNewMesto);
 validFormNewMesto.enableValidation();
 
-const enableCard = new Card();
-enableCard.enableCard();
+export{ openCardImgPopup }
