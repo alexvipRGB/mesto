@@ -5,7 +5,6 @@ const popupProfilForm = document.querySelector('.popup__form_PopupProfil');
 const popupFormNewMesto = document.querySelector('.popup__form_PopupFormNewMesto');
 const nameInput = document.querySelector('.popup__name_profile');
 const jobInput = document.querySelector('.popup__name_job');
-const cardElement = document.querySelector('#elements').content;
 const cardsElement = document.querySelector('#elements');
 const buttonNewProfil = document.querySelector('.profile__submit-btn');
 const inputTextNewMesto = document.querySelector('.popup__name_text');
@@ -18,7 +17,6 @@ const elementContainer = document.querySelector('.elements');
 const popupOpenCard = document.getElementById('popupOpenCard');
 const imgPopapCard = document.querySelector('.popup__image');
 const nameCardsImg = document.querySelector('.popup__name-image');
-const buttonClose = document.querySelector('.popup__close');
 const popupProfile = document.getElementById('popupProfile');
 const popupNewMesto = document.getElementById('popupNewMesto');
 
@@ -66,13 +64,6 @@ function handleProfileFormSubmit(evt) {
   nameProfil.textContent = nameInput.value;// Выберите элементы, куда должны быть вставлены значения полей
   profileJob.textContent = jobInput.value; // Вставьте новые значения с помощью textContent
   closePopup(popupProfile);
-}
-
-function openCardImgPopup(infocards) {
-  imgPopapCard.src = infocards.link;
-  nameCardsImg.textContent = infocards.name;
-  imgPopapCard.alt = infocards.name;
-  openPopup(popupOpenCard);
 }
 
 function handleCardClick(name, link) {
