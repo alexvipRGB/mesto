@@ -10,11 +10,9 @@ const validationConfig = {
 
 class FormValidator {
   // Первый - объект с классами для валидации, второй - объект для валидации
-  constructor(validationConfig, formElement, inputList, buttonElement) {
+  constructor(validationConfig, formElement) {
     this._validationConfig = validationConfig;
     this._formElement = formElement;
-    this._inputList = inputList;
-    this.buttonElement = buttonElement;
   }
 
   // Публичный метод, который включает валидацию форм
@@ -63,7 +61,7 @@ class FormValidator {
 
   }
 
-  _toggleButtonState(_inputList, _buttonElement) {
+  _toggleButtonState() {
     if (this._buttonElement != null) {
       if (this._hasInvalidInput(this._inputList)) {
         this._buttonElement.classList.remove(this._validationConfig.activeButtonClass);

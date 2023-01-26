@@ -1,4 +1,3 @@
-import { openCardImgPopup } from './index.js';
 const initialCards = [
   {
     name: "Архыз",
@@ -32,8 +31,6 @@ const initialCards = [
   }
 ];
 
-const elementContainer = document.querySelector('.elements');
-
 class Card {
   constructor(data, cardSelector, handleCardClick) {
     this._link = data.link;
@@ -52,15 +49,16 @@ class Card {
     this._card.querySelector('.element__trash').addEventListener('click', () => {
       this._card.remove();
     });
-    this._card.querySelector('.element__like').addEventListener('click', () => {
-      cardLike.classList.toggle('element__like_active');
+    this._cardLike = this._card.querySelector('.element__like')
+    this._cardLike.addEventListener('click', () => {
+      this._cardLike.classList.toggle('element__like_active');
     });
-    this._card.addEventListener('click', () => {
+    this._card.querySelector('.element__image').addEventListener('click', () => {
       this._handleCardClick(this._title, this._link)
     });;
   }
   
-  generate() {
+  generateCard() {
     this._card = this._createCard();
     this._setEventListeners();
     this._card.querySelector('.element__title').textContent = this._title;
@@ -71,31 +69,4 @@ class Card {
   }
 }
 
-function createCard (item) {
-  const card = document
-      .querySelector('#elements')
-      .content.querySelector('.element')
-      .cloneNode(true);
-  const cardName = card.querySelector('.element__title');
-  const cardImg = card.querySelector('.element__image');
-  cardName.textContent = item.name;
-  cardImg.src = item.link;
-  cardImg.alt = item.name;
-  card.querySelector('.element__trash').addEventListener('click', () => {
-    card.remove();
-  });
-  const cardLike = card.querySelector('.element__like');
-  cardLike.addEventListener('click', () => {
-    cardLike.classList.toggle('element__like_active');
-  });
-  cardImg.addEventListener('click', () => {
-    openCardImgPopup(item);
-  });
-  return card;
-};
-
-initialCards.forEach((item) => {
-  const cardElement = createCard(item)
-  elementContainer.append(cardElement);
-});
-export { Card }
+export { Card, initialCards }

@@ -1,5 +1,5 @@
 import { FormValidator, validationConfig } from './FormValidator.js';
-import { Card } from './Card.js';
+import { Card, initialCards } from './Card.js';
 
 const popupProfilForm = document.querySelector('.popup__form_PopupProfil');
 const popupFormNewMesto = document.querySelector('.popup__form_PopupFormNewMesto');
@@ -82,10 +82,20 @@ function handleCardClick(name, link) {
   openPopup(popupOpenCard);
 }
 
+function createCard (item) {
+  const card = new Card(item, cardsElement, handleCardClick);
+  return card;
+};
+
+initialCards.forEach((item) => {
+  const cardElement = createCard(item)
+  elementContainer.append(cardElement.generateCard());
+});
+
 const addCard = (event) => {
   event.preventDefault();
   const addCard = new Card({name: inputTextNewMesto.value, link: inputImgNewMesto.value}, cardsElement, handleCardClick);
-  elementContainer.prepend(addCard.generate({name: inputTextNewMesto.value, link: inputImgNewMesto.value}));
+  elementContainer.prepend(addCard.generateCard({name: inputTextNewMesto.value, link: inputImgNewMesto.value}));
   closePopup(popupNewMesto);
   event.target.reset();
 };
@@ -100,5 +110,3 @@ validProfilForm.enableValidation();
 
 const validFormNewMesto = new FormValidator(validationConfig, popupFormNewMesto);
 validFormNewMesto.enableValidation();
-
-export{ openCardImgPopup }
