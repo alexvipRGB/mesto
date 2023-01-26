@@ -75,18 +75,18 @@ function handleCardClick(name, link) {
 
 function createCard (item) {
   const card = new Card(item, cardsElement, handleCardClick);
-  return card;
+  return card.generateCard();
 };
 
 initialCards.forEach((item) => {
   const cardElement = createCard(item)
-  elementContainer.append(cardElement.generateCard());
+  elementContainer.append(cardElement);
 });
 
 const addCard = (event) => {
   event.preventDefault();
-  const addCard = new Card({name: inputTextNewMesto.value, link: inputImgNewMesto.value}, cardsElement, handleCardClick);
-  elementContainer.prepend(addCard.generateCard({name: inputTextNewMesto.value, link: inputImgNewMesto.value}));
+  const cardElement = createCard({name: inputTextNewMesto.value, link: inputImgNewMesto.value})
+  elementContainer.prepend(cardElement);
   closePopup(popupNewMesto);
   event.target.reset();
 };
