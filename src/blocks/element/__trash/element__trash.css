@@ -15,7 +15,7 @@
 
 .element__trash:focus,
 .element__trash:hover {
-    cursor: url(../../../images/Мышь.png) 2 2, default;
+    cursor: 2 2, default;
     opacity: 0.5;
     transition: 0.35s;
 }

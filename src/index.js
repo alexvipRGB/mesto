@@ -3,7 +3,8 @@ import './index.css';
 import { initialCards, validationConfig, popupsConfig } from "./scripts/variables/constants.js";
 import { Card } from "./scripts/components/Card.js";
 import { FormValidator } from "./scripts/components/FormValidator.js";
-import { buttonNewProfil, buttonNewMesto, popupProfilForm, nameInput, jobInput, popupFormNewMesto
+import {
+  buttonNewProfil, buttonNewMesto, popupProfilForm, nameInput, jobInput, popupFormNewMesto
 } from "./scripts/variables/elements.js";
 import Section from './scripts/components/Section.js';
 import PopupWithForm from './scripts/components/PopupWithForm.js';
@@ -21,14 +22,13 @@ const userInfo = new UserInfo({
   description: '.profile__paragrah'
 });
 
-
 function openPropfilePopup() {
   validProfilForm.resetValidation();
-  const {name, description} = userInfo.getUserInfo();
+  const { name, description } = userInfo.getUserInfo();
   nameInput.value = name;
   jobInput.value = description;
   classPropfilePopup.openPopup();
-  
+
 }
 
 function openNewMestoPopup() {
@@ -41,32 +41,35 @@ function handleProfileFormSubmit(value) {
   classPropfilePopup.closePopup();
 }
 
+function createCard(item) {
+  const card = new Card(item, '#elements', openImagePopup);
+  return card.generateCard();
+};
+
+const classImagePopup = new PopupWithImage(popupsConfig.imagePopupSelector);
+classImagePopup.setEventListeners();
+
 function openImagePopup(name, link) {
-  const classImagePopup = new PopupWithImage(popupsConfig.imagePopupSelector, { name, link });
-  classImagePopup.setEventListeners();
-  classImagePopup.openPopup();
+  classImagePopup.openPopup(name, link);
 }
 
-function handleNewMestoSubmit(value) {
-  const newCardNewMesto = {
-    name: value.nameNewMesto,
-    link: value.linkNewMesto
-  }
-  const newMestoCard = new Section({items: newCardNewMesto, renderer: createCard}, '.elements')
-  newMestoCard.renderItem(newMestoCard)
-
-  validFormNewMesto.resetValidation()
+function handleNewMestoSubmit(item) {
+  const newCardNewMesto = createCard({
+    name: item.nameNewMesto,
+    link: item.linkNewMesto
+  });
+  cardList.addItem(newCardNewMesto);
+  validFormNewMesto.resetValidation();
   classNewMestoPopup.closePopup();
 }
 
-function createCard (item, className) {
-  const card = new Card(item, '#elements', openImagePopup);
-  const cardElement = card.generateCard();
-  className.addItem(cardElement);
-};
-
-const cardList = new Section({ items: initialCards, renderer: createCard}, '.elements');
-cardList.renderItems(cardList)
+const cardList = new Section({
+  items: initialCards, renderer: (item) => {
+    const cardElement = createCard(item);
+    cardList.addItem(cardElement);
+  }
+}, ".elements")
+cardList.renderItems(cardList);
 
 buttonNewMesto.addEventListener('click', () => openNewMestoPopup());
 

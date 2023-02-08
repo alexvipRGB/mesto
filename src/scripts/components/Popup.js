@@ -27,7 +27,7 @@ export default class Popup {
     }
   
   setEventListeners() {
-     this._popup.addEventListener('mouseup', () => {this._handleMouseClose(window.event)});
+     this._popup.addEventListener('mouseup', this._handleMouseClose);
      this._popup.querySelector('.popup__close').addEventListener('click', () => {this.closePopup()});
     }
   }  

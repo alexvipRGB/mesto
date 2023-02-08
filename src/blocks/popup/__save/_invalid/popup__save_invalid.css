@@ -1,28 +1,4 @@
 .popup__save_invalid{
-    min-width: 358px;
-    min-height: 50px;
     background: rgb(255, 255, 255);
     color: #000;
-    margin: 0px auto;
-    padding: 0;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 22px;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0.2;
-}
-
-@media screen and (max-width: 770px) {
-    .popup__save_invalid {
-        min-width: 238px;
-        min-height: 46px;
-        margin: 5px auto 0px;
-        font-size: 14px;
-        line-height: 17px;
-    }
-
 }
