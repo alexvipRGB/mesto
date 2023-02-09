@@ -20,7 +20,7 @@ export default class Popup {
       }
     }
   
-    _handleMouseClose(event) {
+    _handleMouseClose = (event) => {
       if (event.target.classList.contains('popup_opened')) {
         this.closePopup()
       }
