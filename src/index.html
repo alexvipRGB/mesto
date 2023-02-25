@@ -95,8 +95,8 @@
         <button type="button" id="closeAvatar" class="popup__close icons" aria-label="Кнопка для закрытия окна"></button>
         <h2 class="popup__text popup__text_avatar">Обновить аватар</h2>
         <form id="popupFormAvatar" class="popup__form" name="popupFormAvatar" novalidate>
-          <input id="avatar-url" class="popup__name popup__name_avatar" type="url" name="inputAvatarUrl" placeholder="Ссылка на картинку" required />
-          <span class="popup__name-error popup__name-error_avatar avatar-url-error"></span>
+          <input type="url" name="inputAvatarUrl" id="avatar-url" class="popup__name popup__name_avatar" placeholder="Ссылка на картинку" required />
+          <span class="avatar-url-error popup__name-error popup__name-error_avatar"></span>
           <button class="popup__save" type="submit" name="submit" aria-label="Сохранить">Сохранить</button>
         </form>
       </div>

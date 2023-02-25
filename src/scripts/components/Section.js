@@ -8,6 +8,10 @@ export default class Section {
     this._container.prepend(card);
   }
 
+  addItems(items) {
+    this._container.append(items);
+  }
+  
   renderItem(card, userID) {
     this._renderer(card, userID);
   }

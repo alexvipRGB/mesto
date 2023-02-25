@@ -15,12 +15,12 @@ export default class Api {
       })
   }
 
-  setAvatar(avatarURL) {
+  setAvatar(avatarUrl) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       headers: this._headers,
       method: 'PATCH',
       body: JSON.stringify({
-        avatar: avatarURL
+        avatar: avatarUrl
       })
     })
       .then(res => {
