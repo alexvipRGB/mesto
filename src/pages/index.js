@@ -156,22 +156,28 @@ function handleLikeClick(element, elementId, isLiked) {
   }
 }
 
-buttonNewMesto.addEventListener('click', () => {
-  validFormNewMesto.resetValidation();
-  classNewMestoPopup.openPopup();
-});
-
-buttonNewProfil.addEventListener('click', () => {
-  validProfilForm.resetValidation();
-  openPropfilePopup();
-  classPropfilePopup.openPopup();
-});
-
-buttonChangeAvatar.addEventListener('click', () => {
+function callbackAvatar() {
   validFormAvatar.resetValidation();
   validFormAvatar.setEventListeners();
   avatarPopup.openPopup();
-});
+}
+
+function callbackNewProfil() {
+  validProfilForm.resetValidation();
+  openPropfilePopup();
+  classPropfilePopup.openPopup();
+}
+
+function callbackNewMesto() {
+  validFormNewMesto.resetValidation();
+  classNewMestoPopup.openPopup();
+}
+
+buttonNewMesto.addEventListener('click', callbackNewMesto);
+
+buttonNewProfil.addEventListener('click', callbackNewProfil);
+
+buttonChangeAvatar.addEventListener('click', callbackAvatar)
 
 const validProfilForm = new FormValidator(validationConfig, popupProfilForm);
 validProfilForm.enableValidation();
